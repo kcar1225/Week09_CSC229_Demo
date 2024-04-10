@@ -31,4 +31,65 @@ What is the value of the first triangle number to have over one hundred divisors
     */
     
     
-}
+
+        public static void main(String[] args) {
+            // Call the method to find  over 100 divisors number, set to 100
+            findTriangleNumberWithDivisors(100);
+        }
+
+        // Method to find the triangle number with over a certain number of divisors
+        public static void findTriangleNumberWithDivisors(int divisorsNum) {
+            int n = 1;
+            while (true) {
+                // Calculate the triangle number  for n
+                long triangleNum = getTriangleNumber(n);
+                // Determine the numbers of the divisors of the triangle number
+                int divisorsCount = countDivisors(triangleNum);
+                // Check for the divisor limit
+                if (divisorsCount > divisorsNum) {
+                    System.out.println("Triangle Number: " + triangleNum);   //print
+                    System.out.print("Divisors: ");
+                    printDivisors(triangleNum);
+                    break; // Exit the loop when the condition is met
+                }
+                n++;
+            }
+        }
+
+        // Method to calculate the nth triangle number
+        public static long getTriangleNumber(int n) {
+            return n * (n + 1) / 2;
+        }
+
+
+        public static int countDivisors(long num) {   // Method counts the number of divisors
+            int count = 0;
+            // Iterate up to the square root of the number to find divisors
+            for (int i = 1; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) {
+                    count += 2; // Increment by 2 because we found two divisors
+                }
+            }
+            // If num is a perfect square, we need to count--1
+            if (Math.sqrt(num) * Math.sqrt(num) == num) {
+                count--;
+            }
+            return count;
+        }
+
+        // Method to print the divisors
+        public static void printDivisors(long num) {
+            for (int i = 1; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) {
+                    System.out.print(i + " ");
+                    if (num / i != i) {
+                        System.out.print(num / i + " ");
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
+
